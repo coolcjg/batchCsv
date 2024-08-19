@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component
 @Component
 class KafkaConsumer {
 
+    /*
     @KafkaListener(topics = ["bulk"])
     fun listener(@Payload data:String){
         println("sub : $data")
     }
+    */
 }

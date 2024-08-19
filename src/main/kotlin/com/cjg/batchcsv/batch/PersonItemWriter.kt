@@ -12,7 +12,6 @@ class PersonItemWriter(
 
     override fun write(chunk: Chunk<out String>){
         chunk.forEach{
-            println(it)
             kafkaProducer.create("bulk", it)
         }
     }

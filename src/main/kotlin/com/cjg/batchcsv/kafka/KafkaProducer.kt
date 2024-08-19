@@ -12,7 +12,7 @@ class KafkaProducer(
         val future = kafkaTemplate.send(topic, message)
 
         future.whenComplete { result, exception ->
-            println(message + ", offset : " + result.recordMetadata.offset() + ", exception : " + exception)
+            println("pub : $message")
         }
 
     }
