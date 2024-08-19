@@ -2,7 +2,6 @@ package com.cjg.batchcsv.batch.config
 
 import com.cjg.batchcsv.batch.PersonItemProcessor
 import com.cjg.batchcsv.batch.PersonItemWriter
-import com.cjg.batchcsv.batch.PersonKafkaItemWriter
 import com.cjg.batchcsv.dto.Person
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
@@ -14,12 +13,9 @@ import org.springframework.batch.core.step.builder.StepBuilder
 import org.springframework.batch.item.file.FlatFileItemReader
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer
-import org.springframework.batch.item.kafka.KafkaItemWriter
-import org.springframework.batch.item.kafka.builder.KafkaItemWriterBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.FileSystemResource
-import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.transaction.PlatformTransactionManager
 
 @Configuration
@@ -28,7 +24,7 @@ class BatchConfig(
     , val personItemWriter : PersonItemWriter
 ) {
 
-    private val chunkSize = 1000
+    private val chunkSize = 10
 
     @Bean
     fun reader():FlatFileItemReader<Person>{
@@ -47,7 +43,7 @@ class BatchConfig(
              , transactionManager: PlatformTransactionManager
     ):Step{
         return StepBuilder("Step", jobRepository)
-            .chunk<Person, String>(3, transactionManager)
+            .chunk<Person, String>(chunkSize, transactionManager)
             .reader(reader())
             .processor(personItemProcessor)
             .writer(personItemWriter)
