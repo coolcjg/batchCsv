@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class KafkaProducer(
-    val kafkaTemplate:KafkaTemplate<String, Any>
+    val kafkaTemplate:KafkaTemplate<String, String>
 ) {
 
     fun create(topic:String, message : String){

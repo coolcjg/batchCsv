@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component
 
 @Component
 class PersonKafkaItemWriter(
-    val kafkaTemplate: KafkaTemplate<String, Any>
+    val kafkaTemplate: KafkaTemplate<String, String>
 ) {
 
-    fun getKafkaItemWriter() : KafkaItemWriter<String, Any> {
-        return KafkaItemWriterBuilder<String,Any>()
+    fun getKafkaItemWriter() : KafkaItemWriter<String, String> {
+        return KafkaItemWriterBuilder<String,String>()
             .kafkaTemplate(kafkaTemplate)
             .build()
     }
