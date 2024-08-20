@@ -4,6 +4,7 @@ import com.cjg.batchcsv.dto.Person
 import com.google.gson.Gson
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.context.annotation.Configuration
+import java.time.format.DateTimeFormatter
 
 @Configuration
 class PersonItemProcessor : ItemProcessor<Person, String> {
@@ -35,7 +36,7 @@ class PersonItemProcessor : ItemProcessor<Person, String> {
         map["phone1"] = person.phone1;
         map["phone2"] = person.phone2;
         map["email"] = person.email;
-        map["subscriptionDate"] = person.subscriptionDate.toString();
+        map["subscriptionDate"] = person.subscriptionDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         map["website"] = person.website;
 
         return Gson().toJson(map);
